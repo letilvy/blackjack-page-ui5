@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Blackjack</title>
+		<link rel="shortcut icon" href="img/poker.png" />
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+		
+		<script src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js" 
+				id="sap-ui-bootstrap"
+				data-sap-ui-theme="sap_belize"
+				data-sap-ui-compatVersion="edge"
+				data-sap-ui-resourceroots='{
+					"ase.ui5.blackjack": "./"
+				}'>
+		</script>
+		
+		<script>
+			sap.ui.getCore().attachInit(function(){
+				sap.ui.require([
+					"sap/m/Shell",
+					"sap/ui/core/ComponentContainer"
+				], function(Shell, ComponentContainer){
+					// initialize the UI component
+					new Shell({
+						title: "Blackjack",
+						showLogout: false,
+						app: new ComponentContainer({
+							manifest: true,
+							async: true,
+							height: "100%",
+							name: "ase.ui5.blackjack",
+							settings: {
+								id: "appContainer"
+							}
+						})
+					}).placeAt('content');
+				});
+			});
+		</script>
+	</head>
+	
+	<body class="sapUiBody" id="content" role="application">
+	</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Integration Test for Blackjack</title>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<meta charset="utf-8">
+
+	<script id="sap-ui-bootstrap"
+			src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+			data-sap-ui-theme="sap_belize"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-resourceroots='{
+                "ase.ui5.blackjack": "../../",
+				"test.integration": "./",
+				"ase.ui5.blackjack.test":"../"
+			}'
+			data-sap-ui-frameOptions='deny'>
+	</script>
+
+	<script>
+		jQuery.sap.require("sap.ui.qunit.qunit-2-css");
+		jQuery.sap.require("sap.ui.thirdparty.qunit-2");
+		jQuery.sap.require("sap.ui.qunit.qunit-junit");
+		jQuery.sap.require("sap.ui.qunit.qunit-coverage");
+
+		if(window.blanket){
+			window.blanket.options("sap-ui-cover-only", ["ase/ui5/blackjack"]);
+			window.blanket.options("sap-ui-cover-never", ["test/"]);
+		}
+
+		QUnit.config.autostart = false;
+
+		sap.ui.require([
+			"jquery.sap.global",
+			"ase/ui5/blackjack/localService/mockserver",
+			"sap/ui/test/gherkin/opa5TestHarness",
+			"test/integration/steps/Steps",
+			"test/integration/pages/Lobby"
+		], function($, mockserver, opa5TestHarness, Steps, Lobby){
+
+			sap.ui.test.Opa5.extendConfig({
+				viewNamespace: "ase.ui5.blackjack.view.",
+				autoWait: true
+			});
+
+			var aFeatures = [
+				"test.integration.features.Lobby"
+			];
+
+			aFeatures.forEach(function(sFeaturePath){
+				opa5TestHarness.test({
+					featurePath: sFeaturePath,
+					steps: Steps,
+					generateMissingSteps: true
+				});
+			});
+
+			mockserver.init();
+
+			QUnit.start();
+		});
+
+	</script>
+
+</head>
+<body>
+<div id="content"></div>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+</body>
+</html>

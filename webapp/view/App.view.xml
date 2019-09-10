@@ -1,0 +1,8 @@
+<mvc:View controllerName="ase.ui5.blackjack.controller.App"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+	<App
+		id="app_blackjack">		
+	</App>
+</mvc:View>
