@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Unit Tests for Blackjack</title>
+		<link rel="shortcut icon" href="../../img/poker.png" />
+		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+		<meta charset="utf-8">
+		
+		<script id="sap-ui-bootstrap"
+				src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+				data-sap-ui-resourceroots='{
+					"ase.ui5.blackjack": "../../",
+					"test.unit": "./"
+				}'
+				data-sap-ui-frameOptions='deny'>
+		</script>
+		
+		<script>
+			jQuery.sap.require("sap.ui.thirdparty.qunit-2");
+			jQuery.sap.require("sap.ui.qunit.qunit-2-css");
+			jQuery.sap.require("sap.ui.qunit.qunit-junit");
+			jQuery.sap.require("sap.ui.qunit.qunit-coverage");
+
+			if (window.blanket) {
+				blanket.options("sap-ui-cover-only", "ase/ui5/blackjack");
+			}
+ 					
+			QUnit.config.autostart = false;
+
+			sap.ui.require([
+            	"test/unit/allTests"
+            ],function(){
+				QUnit.start();
+			});
+		</script>
+	</head>
+	
+	<body>
+		<ol id="qunit-tests"></ol>
+		<div id="qunit-fixture"></div>
+	</body>
+</html>
