@@ -12,7 +12,7 @@
 		},
 		"dataSources": {
 			"mainService": {
-				"uri": "/services/odata/blackjack",
+				"uri": "http://localhost:8080/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0",
