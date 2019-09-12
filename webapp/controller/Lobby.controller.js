@@ -24,7 +24,13 @@ sap.ui.define([
 		},
 
 		onStartGame: function(){
+			jQuery.ajax({
+				type: "POST",
+				url: "http://localhost:8080/startgame",
+				success: function(oData){
 
+				}
+			});
 		},
 
 		onDeal: function(){
