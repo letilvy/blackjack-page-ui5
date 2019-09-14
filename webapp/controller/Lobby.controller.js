@@ -17,6 +17,11 @@ sap.ui.define([
 				"bankerCards": [{kind: "king",suit: "clubs"}, {kind: "queen",suit: "hearts"}],
 				"playerCards": [{kind: "ace",suit: "hearts"}, {kind: "7",suit: "diamonds"}, {kind: "jack",suit: "spades"}]
 			}));*/
+			this.setModel(new JSONModel({
+				"bankerCards": [],
+				"playerCards": [],
+				"status": "initial"
+			}));
 		},
 
 		onLobbyMatched: function(oEvent){
@@ -42,6 +47,7 @@ sap.ui.define([
 					var aPlayerCard = oModel.getProperty("/playerCards");
 					aPlayerCard.push(oData.newCard);
 					oModel.setProperty("/playerCards", aPlayerCard);
+					oModel.setProperty("/status", oData.status);
 				}
 			});
 		}

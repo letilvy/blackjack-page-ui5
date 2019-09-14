@@ -1,7 +1,24 @@
 [
 	{"kind": "king", "suit": "clubs"},
-	{"kind": "queen", "suit": "hearts"},
 	{"kind": "ace", "suit": "hearts"},
+	{"kind": "queen", "suit": "spades"},
 	{"kind": "7", "suit": "diamonds"},
-	{"kind": "jack", "suit": "spades"}
+	{"kind": "jack", "suit": "spades"},
+	{"kind": "3", "suit": "hearts"},
+
+	{"kind": "7", "suit": "clubs"},
+	{"kind": "7", "suit": "spades"},
+	{"kind": "7", "suit": "hearts"},
+
+	{"kind": "ace", "suit": "diamonds"},
+	{"kind": "ace", "suit": "spades"},
+	{"kind": "ace", "suit": "clubs"},
+
+	{"kind": "queen", "suit": "hearts"},
+	{"kind": "queen", "suit": "clubs"},
+	{"kind": "queen", "suit": "diamonds"},
+
+	{"kind": "3", "suit": "clubs"},
+	{"kind": "3", "suit": "diamonds"},
+	{"kind": "3", "suit": "spades"}
 ]

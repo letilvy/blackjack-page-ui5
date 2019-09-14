@@ -10,7 +10,7 @@ sap.ui.define([
 			var oUriParameters = jQuery.sap.getUriParameters(),
 				sMockServerUrl = "http://localhost:8080/",
 				sMetadataUrl = "../localService/metadata.xml",
-				sJsonFilesUrl = "../localService/mockdata";
+				sJsonFilesUrl = jQuery.sap.getModulePath("ase/ui5/blackjack/localService/mockdata");
 
 			oMockServer = new MockServer({
 				rootUri: sMockServerUrl
@@ -28,33 +28,42 @@ sap.ui.define([
 			});
 
 			// print network request 
-			oMockServer.attachBefore(sap.ui.core.util.MockServer.HTTPMETHOD.GET, function (oEvent) {
+			oMockServer.attachBefore(sap.ui.core.util.MockServer.HTTPMETHOD.GET, function(oEvent){
 				var sRequestUrl = decodeURI(oEvent.getParameter("oXhr").url);
 				jQuery.sap.log.info("Network Request: " + sRequestUrl);
 			});
 
-			var aRequests = oMockServer.getRequests();
+			var aRequests = oMockServer.getRequests(),
+				sTableCardJsonUrl = sJsonFilesUrl + "/TableCardSet.json",
+				aTableCard = jQuery.sap.syncGetJSON(sTableCardJsonUrl).data;
 
-			//var sLobbyJsonUrl = sJsonFilesUrl + "/Set.json";
 			aRequests.push({
 				method: "POST",
 				path: new RegExp("startgame(.*)"),
-				response: function(oXhr) {
-					//var aLobby = jQuery.sap.syncGetJSON(sLobbyJsonUrl).data.d.results;
+				response: function(oXhr){
 					oXhr.respondJSON(200, {}, {
-						"bankerCards": [{kind: "king",suit: "clubs"}],
-						"playerCards": [{kind: "ace",suit: "hearts"}]
+						"bankerCards": [aTableCard[0]],
+						"playerCards": [aTableCard[1]]
 					});
 					return true;
 				}
 			});
 
+			var iDealCnt = 2; //The first two cards (0 and 1) are deal when start game
 			aRequests.push({
-				//key: "deal",
 				method: "POST",
 				path: new RegExp("deal(.*)"),
-				response: function(oXhr) {
-					oXhr.respondJSON(200, {}, {kind: "jack",suit: "spades"});
+				response: function(oXhr){
+					if(sap.ui.test && sap.ui.test.Opa.getContext().newDealCard){
+						oXhr.respondJSON(200, {}, sap.ui.test.Opa.getContext().newDealCard);
+					}else if(iDealCnt < aTableCard.length){
+						oXhr.respondJSON(200, {}, {
+							newCard: aTableCard[iDealCnt],
+							status: "ongoing"
+						});
+						iDealCnt++;
+					}
+					
 					return true;
 				}
 			});
@@ -63,27 +72,7 @@ sap.ui.define([
 
 			oMockServer.start();
 
-			this.renewDealRequest({kind: "jack",suit: "hearts"}, "win");
-
 			jQuery.sap.log.info("Running the app with mock data");
-		},
-
-		renewDealRequest: function(oNewCard, sResult){
-			var aRequests = oMockServer.getRequests();
-			aRequests = aRequests.filter(o => { return o.key !== "deal"; });
-			aRequests.push({
-				//key: "deal",
-				method: "POST",
-				path: new RegExp("deal(.*)"),
-				response: function(oXhr) {
-					oXhr.respondJSON(200, {}, {
-						newCard: oNewCard,
-						result: sResult
-					});
-					return true;
-				}
-			});
-			oMockServer.setRequests(aRequests);
 		}
 	};
 

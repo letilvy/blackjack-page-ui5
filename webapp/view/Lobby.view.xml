@@ -6,7 +6,7 @@
 	height="100%">
 	<Page title="{i18n>appTitle}">
 		<content>
-			<Panel headerText="{i18n>titleBankerCards}">
+			<Panel id="panel_banker_cards" headerText="{i18n>titleBankerCards}">
 				<content>
 					<HBox justifyContent="Center" items="{/bankerCards}">
 						<control:Card kind="{kind}" suit="{suit}"/>
@@ -15,11 +15,16 @@
 			</Panel>
 
 			<HBox justifyContent="Center" alignItems="Center" class="sapUiSmallMarginBottom sapUiLargeMarginTop">
-				<Button text="{i18n>btnStartGame}" type="Accept" press="onStartGame"/>
-				<Button text="{i18n>btnDeal}" type="Emphasized" class="sapUiSmallMarginBegin" press="onDeal"/>
+				<Button id="btn_start_game" text="{i18n>btnStartGame}" type="Accept" press="onStartGame"/>
+				<Button id="btn_deal" text="{i18n>btnDeal}" type="Emphasized" class="sapUiSmallMarginBegin" press="onDeal"/>
+				
+				<HBox visible="{= ${/status} === 'win' || ${/status} === 'lose'}" justifyContent="Center" alignItems="Center" class="sapUiLargeMarginBegin">
+					<core:Icon src="sap-icon://competitor" color="#FFD700" size="3rem"/>
+					<Title id="title_game_result" text="{= ${/status} === 'win' ? ${i18n>textPlayerWin}:${i18n>textBankerWin}}" class="sapUiTinyMarginBegin"/>
+				</HBox>
 			</HBox>
 
-			<Panel headerText="{i18n>titlePlayerCards}">
+			<Panel id="panel_player_cards" headerText="{i18n>titlePlayerCards}">
 				<content>
 					<HBox justifyContent="Center" items="{/playerCards}">
 						<control:Card kind="{kind}" suit="{suit}"/>

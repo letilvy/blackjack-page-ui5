@@ -66,9 +66,9 @@ sap.ui.define([
 			oRM.writeControlData(oControl);
 			oRM.writeClasses();
 			if (getFontColor(oControl.getSuit()) === "red") {
-				oRM.write("><div style=\"font-size:5.5em;color:red;\">");
+				oRM.write("><div style=\"font-size:7em;color:red;\">");
 			} else {
-				oRM.write("><div style=\"font-size:5.5em;color:black;\">");
+				oRM.write("><div style=\"font-size:7em;color:black;\">");
 			}
 			oRM.write(toUnicode(oControl.getSuit(), oControl.getKind()));
 			oRM.write("</div></div>");
