@@ -21,10 +21,10 @@ sap.ui.require([
 					});
 				},
 				dealOneCard: function(sSuit, sKind, sStatus){
-					sap.ui.test.Opa.getContext().newDealCard = {
+					/*sap.ui.test.Opa.getContext().newDealCard = {
 						newCard: {kind: sKind, suit: sSuit},
 						status: sStatus
-					};
+					};*/
 					return this.waitFor({
 						viewName: sViewName,
 						id: "btn_deal",

@@ -1,11 +1,15 @@
 Feature: Play the Game
 
-Scenario: Player Win
-	Given I start my app
-	When I start the game
-	Then banker should have card (clubs king)
-	And player should have card (hearts ace)
+	Background:
+		Given I have started the app
 
-	When player ask for deal
-	And player get a new card (diamonds jack) which makes points equal to 21
-	Then player win the game
+	Scenario: Start the game
+		Given server return following data in game start:
+
+			| bankerCards | [{"kind":"king","suit":"diamonds"}] |
+			| playerCards | [{"kind":"ace","suit":"hearts"}]    |
+			| status      | "ongoing"                           |
+
+		When I start the game
+		Then banker should have card (diamonds king)
+		And player should have card (hearts ace)

@@ -43,11 +43,7 @@ sap.ui.define([
 				type: "POST",
 				url: "http://localhost:8080/deal",
 				success: (oData) => {
-					var oModel = this.getModel();
-					var aPlayerCard = oModel.getProperty("/playerCards");
-					aPlayerCard.push(oData.newCard);
-					oModel.setProperty("/playerCards", aPlayerCard);
-					oModel.setProperty("/status", oData.status);
+					this.setModel(new JSONModel(oData));
 				}
 			});
 		}

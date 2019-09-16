@@ -41,27 +41,32 @@ sap.ui.define([
 				method: "POST",
 				path: new RegExp("startgame(.*)"),
 				response: function(oXhr){
-					oXhr.respondJSON(200, {}, {
-						"bankerCards": [aTableCard[0]],
-						"playerCards": [aTableCard[1]]
-					});
+					if(sap.ui.test && sap.ui.test.Opa.getContext().gameStatus){
+						oXhr.respondJSON(200, {}, sap.ui.test.Opa.getContext().gameStatus);
+					}else{
+						oXhr.respondJSON(200, {}, {
+							"bankerCards": [aTableCard[0]],
+							"playerCards": [aTableCard[1]],
+							"status": "ongoing"
+						});
+					}
+
 					return true;
 				}
 			});
 
-			var iDealCnt = 2; //The first two cards (0 and 1) are deal when start game
 			aRequests.push({
 				method: "POST",
 				path: new RegExp("deal(.*)"),
 				response: function(oXhr){
-					if(sap.ui.test && sap.ui.test.Opa.getContext().newDealCard){
-						oXhr.respondJSON(200, {}, sap.ui.test.Opa.getContext().newDealCard);
-					}else if(iDealCnt < aTableCard.length){
+					if(sap.ui.test && sap.ui.test.Opa.getContext().gameStatus){
+						oXhr.respondJSON(200, {}, sap.ui.test.Opa.getContext().gameStatus);
+					}else{
 						oXhr.respondJSON(200, {}, {
-							newCard: aTableCard[iDealCnt],
-							status: "ongoing"
+							"bankerCards": [aTableCard[0]],
+							"playerCards": [aTableCard[1],aTableCard[2]],
+							"status": "ongoing"
 						});
-						iDealCnt++;
 					}
 					
 					return true;
