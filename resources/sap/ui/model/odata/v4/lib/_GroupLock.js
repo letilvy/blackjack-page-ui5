@@ -1,0 +1,6 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2019 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/base/SyncPromise"],function(S){"use strict";function _(g,l,o,s){this.sGroupId=g;this.bLocked=!!l;this.oOwner=o;this.oPromise=null;this.iSerialNumber=s===undefined?Infinity:s;}_.prototype.getGroupId=function(){return this.sGroupId;};_.prototype.getSerialNumber=function(){return this.iSerialNumber;};_.prototype.getUnlockedCopy=function(){return new _(this.sGroupId,undefined,this.oOwner,this.iSerialNumber);};_.prototype.isLocked=function(){return this.bLocked;};_.prototype.toString=function(){var d="sap.ui.model.odata.v4.lib._GroupLock("+(this.isLocked()?"locked":"unlocked")+",group="+this.sGroupId;if(this.oOwner){d+=",owner="+this.oOwner;}if(this.iSerialNumber!==Infinity){d+=",serialNumber="+this.iSerialNumber;}return d+")";};_.prototype.unlock=function(f){if(this.bLocked===undefined&&!f){throw new Error("GroupLock unlocked twice");}this.bLocked=undefined;if(this.oPromise){this.oPromise.$resolve();}};_.prototype.waitFor=function(g){var r;if(this.bLocked&&this.sGroupId===g){if(!this.oPromise){this.oPromise=new S(function(a){r=a;});this.oPromise.$resolve=r;}return this.oPromise;}};_.$cached=new _("$cached");_.$cached.unlock=function(){};return _;},false);
