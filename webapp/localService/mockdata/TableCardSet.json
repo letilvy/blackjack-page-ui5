@@ -1,7 +1,7 @@
 [
 	{"kind": "king", "suit": "clubs"},
-	{"kind": "queen", "suit": "hearts"},
 	{"kind": "ace", "suit": "hearts"},
+	{"kind": "queen", "suit": "hearts"},
 	{"kind": "7", "suit": "diamonds"},
 	{"kind": "jack", "suit": "spades"}
 ]

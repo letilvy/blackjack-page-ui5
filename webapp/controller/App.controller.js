@@ -7,7 +7,6 @@ sap.ui.define([
 	return BaseController.extend("ase.ui5.blackjack.controller.App", {
 		onInit: function(){
 			this.getView().setDisplayBlock(true);
-			//this.getView().addStyleClass("aseBJ");
 		}
 	});
 });

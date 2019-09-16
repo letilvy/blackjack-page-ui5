@@ -13,10 +13,11 @@ sap.ui.define([
 			this.getRouter().getRoute("lobby").attachPatternMatched(this.onLobbyMatched, this);
 
 			// Sample for using the card
-			/*this.setModel(new JSONModel({
+			this.setModel(new JSONModel({
 				"bankerCards": [{kind: "king",suit: "clubs"}, {kind: "queen",suit: "hearts"}],
-				"playerCards": [{kind: "ace",suit: "hearts"}, {kind: "7",suit: "diamonds"}, {kind: "jack",suit: "spades"}]
-			}));*/
+				"playerCards": [{kind: "ace",suit: "hearts"}, {kind: "7",suit: "diamonds"}, {kind: "jack",suit: "spades"}],
+				"status": "end"
+			}));
 		},
 
 		onLobbyMatched: function(oEvent){
@@ -24,26 +25,9 @@ sap.ui.define([
 		},
 
 		onStartGame: function(){
-			jQuery.ajax({
-				type: "POST",
-				url: "http://localhost:8080/startgame",
-				success: (oData) => {
-					this.setModel(new JSONModel(oData));
-				}
-			});
 		},
 
 		onDeal: function(){
-			jQuery.ajax({
-				type: "POST",
-				url: "http://localhost:8080/deal",
-				success: (oData) => {
-					var oModel = this.getModel();
-					var aPlayerCard = oModel.getProperty("/playerCards");
-					aPlayerCard.push(oData.newCard);
-					oModel.setProperty("/playerCards", aPlayerCard);
-				}
-			});
 		}
 	});
 });
